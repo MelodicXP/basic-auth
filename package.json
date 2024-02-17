@@ -2,10 +2,10 @@
   "name": "basic-auth",
   "version": "1.0.0",
   "description": "",
-  "main": "app.js",
+  "main": "index.js",
   "scripts": {
-    "start": "node app.js",
-    "watch": "nodemon app.js",
+    "start": "node index.js",
+    "watch": "nodemon index.js",
     "db:config": "sequelize init:config",
     "db:create": "sequelize db:create",
     "test-watch": "NODE_ENV=test jest --verbose --coverage --watchAll",
