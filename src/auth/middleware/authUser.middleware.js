@@ -25,7 +25,7 @@ const authenticateUser = async (req, res, next) => {
     console.log('BasicHeaderParts from middleware: ', basicHeaderParts);
     let encodedString = basicHeaderParts.pop(); // pop 'Basic' from array now is 'am9objpmb28='
     let decodedString = base64.decode(encodedString); // "username:password"
-    let [username, password] = decodedString.split(':');
+    let [username, password] = decodedString.split(':'); // username, password
 
     /*
     Now that we finally have username and password, let's see if it's valid
@@ -36,10 +36,7 @@ const authenticateUser = async (req, res, next) => {
   */
     // Find user and verify password
     const user = await usersCollection.read(username);
-    console.log('User from middleware: ', user);
-    
     const valid = await bcrypt.compare(password, user.password);
-    console.log('Valid from middleware: ', valid);
 
     if (!valid) throw new Error('Invalid Login Credentials');
 

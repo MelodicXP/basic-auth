@@ -14,7 +14,6 @@ const router = express.Router();
 // echo '{"username":"john","password":"foo"}' | http post :3000/signup
 // http post :3000/signup username=john password=foo
 router.post('/signup', async (req, res) => {
-  // todo - extract into its own file?
   try {
     const newUser = await usersCollection.create(req.body);
 
