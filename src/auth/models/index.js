@@ -5,6 +5,10 @@ require('dotenv').config();
 // Import library of sequelize
 const { Sequelize, DataTypes } = require('sequelize');
 
+// Import model definitions
+const Users = require('./users-model');
+const Collection = require('./collection');
+
 const DATABASE_URL = process.env.DATABASE_URL === 'test'
   ? 'sqlite:memory'
   : process.env.DATABASE_URL;
@@ -21,7 +25,14 @@ const sequelizeDatabase = new Sequelize(DATABASE_URL, {
   // },
 });
 
+// Initialize User model
+const usersModel = Users(sequelizeDatabase, DataTypes);
+
+// Create a new COLLECTION class for each model
+const usersCollection = new Collection(usersModel);
+
 // Export sequelizeDatabase instance and models wrapped in Collection instances
 module.exports = {
   sequelizeDatabase,
+  usersCollection,
 };
