@@ -50,6 +50,27 @@ router.get('/users', async (req, res, next) => {
   res.status(200).send(users);
 });
 
+// ** GET one user by username
+router.get('/users/:username', async (req, res, next) => {
+  try {
+    // set id variable from request to find by id
+    const username = req.params.username;
+    // find book by id 
+    const user = await usersCollection.read(username);
+
+    // Check if response is an empty array indicating book not found
+    if (!user || user.length === 0) {
+      // book not found, return a 404 status
+      return res.status(404).send({ message: `User with username ${username} not found` });
+    }
+    
+    // book found, return it
+    res.status(200).send(user);
+  } catch (e) { // catch error
+    next(e);
+  }
+});
+
 // Delete a user by id
 router.delete('/users/:id', async (req, res, next) => {
   try {
