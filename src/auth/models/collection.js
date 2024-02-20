@@ -16,13 +16,14 @@ class Collection{
     }
   }
 
-  // ** READ - read items from data (serves for BOTH get all, and get by id)
+  // ** READ - read items from data (serves for BOTH get all, and get by username)
   async read(username){
     try {
-      // If no ID is provided, fetch all records
+      // If no username is provided, fetch all records
       const options = username ? { where: { username: username } } : {};
+      console.log('Option from Collection: ', options);
       const records = await this.model.findAll(options);
-
+      
       // If username is provided, expecting a single record
       if (username && records.length) {
         return records[0]; // Since findByPk would return a single object, mimic that by returning the first item of the array.

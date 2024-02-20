@@ -1,7 +1,6 @@
 'use strict';
 
 const express = require('express');
-const bcrypt = require('bcrypt');
 
 // Import users-model and middleware(authenticateUser)
 const { usersCollection } = require('../auth/models/index');
@@ -17,7 +16,6 @@ const router = express.Router();
 router.post('/signup', async (req, res) => {
   // todo - extract into its own file?
   try {
-    req.body.password = await bcrypt.hash(req.body.password, 10);
     const newUser = await usersCollection.create(req.body);
 
     // Log the newUser information (assuming this is successful and what you want)
