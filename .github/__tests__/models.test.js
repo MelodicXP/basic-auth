@@ -24,6 +24,17 @@ describe('User REST API', () => {
     expect(response.status).toBe(200);
     expect(response.body.username).toEqual('john');
   });
+
+  it('Handles invalid login authentication in /signin route (use basic auth).', async () => {
+    // Encode the credentials
+    const credentials = base64.encode('john:wrongPassword');
+  
+    // Make the request with the Authorization header
+    let response = await mockRequest.post('/signin')
+      .set('Authorization', `Basic ${credentials}`);
+
+    expect(response.body.error).toEqual('Invalid Login Credentials');
+  });
   
   it('POSTs to /signin route to login as a user (use basic auth).', async () => {
     // Encode the credentials
@@ -58,6 +69,14 @@ describe('User REST API', () => {
     expect(response.body[0].username).toEqual('john');
     expect(response.body[0].id).toEqual(1);
     expect(response.body[0].id).toBeTruthy();
+  });
+
+  it('gets one user by username', async () => {
+    let response = await mockRequest.get('/users/john');
+    expect(response.status).toEqual(200);
+    expect(response.body.username).toEqual('john');
+    expect(response.body.id).toEqual(1);
+    expect(response.body.id).toBeTruthy();
   });
 });
 

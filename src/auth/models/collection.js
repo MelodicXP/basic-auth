@@ -37,39 +37,41 @@ class Collection{
   }
 
   // ** READ / GET records by any foreign key (all books by author id)
-  async readByForeignKey(foreignKey, value) {
-    try {
-      // Ensure authorId is provided
-      if (!value) {
-        throw new Error('A value for the foreign key is required');
-      }
+  // ! Use this later when using all associations
+  // async readByForeignKey(foreignKey, value) {
+  //   try {
+  //     // Ensure authorId is provided
+  //     if (!value) {
+  //       throw new Error('A value for the foreign key is required');
+  //     }
 
-      // Fetch all records where the foreignKey matches the authorId
-      const records = await this.model.findAll({ where: { [foreignKey]: value } });
+  //     // Fetch all records where the foreignKey matches the authorId
+  //     const records = await this.model.findAll({ where: { [foreignKey]: value } });
 
-      return records;
-    } catch (e) {
-      console.error(`Read by foreign key (${foreignKey}) error in the collection interface:`, e);
-      throw e;
-    }
-  }
+  //     return records;
+  //   } catch (e) {
+  //     console.error(`Read by foreign key (${foreignKey}) error in the collection interface:`, e);
+  //     throw e;
+  //   }
+  // }
 
   // ** UPDATE - update record in database by id
-  async update(id, json){
-    try {
-      // Find record by id
-      const record = await this.model.findOne({ where: { id } });
-      if (record) {
-        // update record with json data passed in (req.body)
-        await record.update(json);
-        return record;
-      }
-      return null;
-    } catch (e) {
-      console.error('Update error in the collection interface:', e);
-      throw e;
-    }
-  }
+  // ! Use this later when updating user
+  // async update(id, json){
+  //   try {
+  //     // Find record by id
+  //     const record = await this.model.findOne({ where: { id } });
+  //     if (record) {
+  //       // update record with json data passed in (req.body)
+  //       await record.update(json);
+  //       return record;
+  //     }
+  //     return null;
+  //   } catch (e) {
+  //     console.error('Update error in the collection interface:', e);
+  //     throw e;
+  //   }
+  // }
 
   // ** DELETE - delete record by id
   async delete(id){

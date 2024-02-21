@@ -37,7 +37,11 @@ const authenticateUser = async (req, res, next) => {
     const user = await usersCollection.read(username);
     const valid = await bcrypt.compare(password, user.password);
 
-    if (!valid) throw new Error('Invalid Login Credentials');
+    if (!valid) {
+      const error = new Error('Invalid Login Credentials');
+      error.status = 401; // Set the status code on the error object
+      next(error); // Forward the error to the error-handling middleware (500.js)
+    }    
 
     // If valid, attach user to request and proceed
     req.user = user;
