@@ -78,5 +78,26 @@ describe('User REST API', () => {
     expect(response.body.id).toEqual(1);
     expect(response.body.id).toBeTruthy();
   });
+
+  it('fails to delete user of non-existent id', async () => {
+    let deleteResponse = await mockRequest.delete('/users/100');
+    expect(deleteResponse.status).toEqual(404);
+    expect(deleteResponse.body.id).toEqual(undefined);
+    expect(deleteResponse.body.deleted).toBeFalsy();
+    expect(deleteResponse.body.message).toEqual('User with ID 100 not found')
+
+    let response = await mockRequest.get('/users');
+    expect(response.body.length).toEqual(1);
+  });
+
+  it('deletes a user by id', async () => {
+    let deleteResponse = await mockRequest.delete('/users/1');
+    expect(deleteResponse.status).toEqual(200);
+    expect(deleteResponse.body.id).toEqual('1');
+    expect(deleteResponse.body.deleted).toBeTruthy();
+
+    let response = await mockRequest.get('/users');
+    expect(response.body.length).toEqual(0);
+  });
 });
 
