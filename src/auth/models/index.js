@@ -17,12 +17,12 @@ const DATABASE_URL = process.env.DATABASE_URL === 'test'
 const sequelizeDatabase = new Sequelize(DATABASE_URL, {
   dialect: 'postgres',
   // remove this bottom portion to work locally, line 22 - 27
-  // dialectOptions: {
-  //   ssl: {
-  //     require: true,
-  //     rejectUnauthorized: false, // You might need this line if you're using a self-signed certificate
-  //   },
-  // },
+  dialectOptions: {
+    ssl: {
+      require: true,
+      rejectUnauthorized: false, // You might need this line if you're using a self-signed certificate
+    },
+  },
 });
 
 // Initialize User model
