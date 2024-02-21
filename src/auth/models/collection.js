@@ -21,7 +21,6 @@ class Collection{
     try {
       // If no username is provided, fetch all records
       const options = username ? { where: { username: username } } : {};
-      console.log('Option from Collection: ', options);
       const records = await this.model.findAll(options);
       
       // If username is provided, expecting a single record

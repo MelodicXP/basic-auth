@@ -34,24 +34,30 @@ describe('User REST API', () => {
       .set('Authorization', `Basic ${credentials}`);
   
     expect(response.status).toBe(200);
+    expect(response.body.username).toEqual('john');
   });
 
-  // it('Checks if middleware function sends back a basic header', async () => {
-  //   let deleteErrorResponse = await mockRequest.delete('/author/9999');
-  //   expect(deleteErrorResponse.status).toEqual(404);
-  //   expect(deleteErrorResponse.body.message).toEqual('Author with ID 9999 not found');
-  // });
+  it('handles 404 on a bad route', async () => {
+    const response = await mockRequest.get('/badRoute');
+    expect(response.status).toEqual(404);
+    expect(response.body.message).toEqual('Not Found');
+  });
 
-  // it('handles 404 on a bad route', async () => {
-  //   const response = await mockRequest.get('/badRoute');
-  //   expect(response.status).toEqual(404);
-  //   expect(response.body.message).toEqual('Not Found');
-  // });
+  it('handles 404 on a bad method', async () => {
+    const response = await mockRequest.put('/user');
+    expect(response.status).toEqual(404);
+  });
 
-  // it('handles 404 on a bad method', async () => {
-  //   const response = await mockRequest.put('/user');
-  //   expect(response.status).toEqual(404);
-  // });
+  it('gets all users from database', async () => {
+    // response comes back as an array, testing for first index in the array
+    let response = await mockRequest.get('/users');
 
+    expect(response.status).toBe(200);
+    expect(Array.isArray(response.body)).toBe(true);
+    // expect(response.body.length).toBeGreaterThan(1);
+    expect(response.body[0].username).toEqual('john');
+    expect(response.body[0].id).toEqual(1);
+    expect(response.body[0].id).toBeTruthy();
+  });
 });
 

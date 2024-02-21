@@ -22,7 +22,6 @@ const authenticateUser = async (req, res, next) => {
   */
     // Extract and decode user name and password
     let basicHeaderParts = req.headers.authorization.split(' '); // ['Basic', 'am9objpmb28=']
-    console.log('BasicHeaderParts from middleware: ', basicHeaderParts);
     let encodedString = basicHeaderParts.pop(); // pop 'Basic' from array now is 'am9objpmb28='
     let decodedString = base64.decode(encodedString); // "username:password"
     let [username, password] = decodedString.split(':'); // username, password
