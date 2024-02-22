@@ -12,9 +12,9 @@ Deploy an Express server that implements Basic Authentication, with signup and s
 
 ### Links and Resources
 
-- [Pull Request](https://github.com/MelodicXP/api-server/pull/6)
+- [Pull Request](https://github.com/MelodicXP/basic-auth/pull/2)
 - [GitHub Actions ci/cd](https://github.com/MelodicXP/basic-auth/actions)
-- Prod [back-end server url](https://four01lab03-api-server-prod.onrender.com)
+- Prod [back-end server url](https://basic-auth-vw0p.onrender.com)
 
 ### Collaborators
 
