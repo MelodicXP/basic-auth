@@ -1,8 +1,8 @@
 'use strict';
 
-const { app } = require('../../src/server');
+const { app } = require('../src/server');
 const supertest = require('supertest');
-const { sequelizeDatabase } = require('../../src/auth/models');
+const { sequelizeDatabase } = require('../src/auth/models');
 const mockRequest = supertest(app);
 const base64 = require('base-64');
 
@@ -84,7 +84,7 @@ describe('User REST API', () => {
     expect(deleteResponse.status).toEqual(404);
     expect(deleteResponse.body.id).toEqual(undefined);
     expect(deleteResponse.body.deleted).toBeFalsy();
-    expect(deleteResponse.body.message).toEqual('User with ID 100 not found')
+    expect(deleteResponse.body.message).toEqual('User with ID 100 not found');
 
     let response = await mockRequest.get('/users');
     expect(response.body.length).toEqual(1);
