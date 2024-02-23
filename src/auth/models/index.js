@@ -14,16 +14,19 @@ const DATABASE_URL = process.env.DATABASE_URL === 'test'
   : process.env.DATABASE_URL;
 
 // Initialize single instance of Sequelize with database configuration
-const sequelizeDatabase = new Sequelize(DATABASE_URL, {
-  dialect: 'postgres',
-  // remove this bottom portion to work locally
-  dialectOptions: {
-    ssl: {
-      require: true,
-      rejectUnauthorized: false, // You might need this line if you're using a self-signed certificate
-    },
-  },
-});
+const sequelizeDatabase = new Sequelize(DATABASE_URL);
+
+// Initialize single instance of Sequelize with database configuration
+// const sequelizeDatabase = new Sequelize(DATABASE_URL, {
+//   dialect: 'postgres',
+//   // remove this bottom portion to work locally
+//   dialectOptions: {
+//     ssl: {
+//       require: true,
+//       rejectUnauthorized: false, // You might need this line if you're using a self-signed certificate
+//     },
+//   },
+// });
 
 // Initialize User model
 const usersModel = Users(sequelizeDatabase, DataTypes);
