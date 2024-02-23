@@ -13,7 +13,10 @@ const DATABASE_URL = process.env.DATABASE_URL === 'test'
   ? 'sqlite:memory'
   : process.env.DATABASE_URL;
 
-// Initialize single instance of Sequelize with database configuration
+// Initialize single instance of Sequelize with database configuration (use for testing, does not work with github actions)
+// const sequelizeDatabase = new Sequelize(DATABASE_URL);
+
+// Initialize single instance of Sequelize with database configuration (use when pushing up to github actions)
 const sequelizeDatabase = new Sequelize(DATABASE_URL, {
   dialect: 'postgres',
   // remove this bottom portion to work locally
