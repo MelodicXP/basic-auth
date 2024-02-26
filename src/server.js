@@ -45,5 +45,7 @@ function start() {
   app.listen(PORT, () => console.log(`listening on port ${PORT}`));
 }
 
-// Export for use in other files
-module.exports = { start, app };
+module.exports = { 
+  start, // to use in index.js at root
+  app, // to use in testing
+};
