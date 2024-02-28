@@ -21,7 +21,7 @@ describe('User REST API', () => {
       username: 'john',
       password: 'foo',
     });
-    expect(response.status).toBe(200);
+    expect(response.status).toEqual(200);
     expect(response.body.username).toEqual('john');
   });
 
@@ -43,7 +43,9 @@ describe('User REST API', () => {
     // Make the request with the Authorization header
     let response = await mockRequest.post('/signin')
       .set('Authorization', `Basic ${credentials}`);
-  
+
+    // Could also write as one line, supertest has a method to create a header and encode (.auth) in which we can simply pass in username and password
+    // let response = await mockRequest.post('/signin').auth('john', 'foo');
     expect(response.status).toBe(200);
     expect(response.body.username).toEqual('john');
   });

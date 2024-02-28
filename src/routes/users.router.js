@@ -5,6 +5,7 @@ const express = require('express');
 // Import users-model and middleware(authenticateUser)
 const { usersCollection } = require('../auth/models/index');
 const authenticateUser = require('../auth/middleware/authUser.middleware');
+const authenticateBearer = require('../auth/middleware/authBearer.middleware');
 
 // Single instance of router
 const router = express.Router();
@@ -42,9 +43,14 @@ router.post('/signin', authenticateUser, async (req, res) => {
 });
 
 // ** GET all users items from database, await connection to database and send back data
-router.get('/users', async (req, res, next) => {
-  const users = await usersCollection.read();
-  res.status(200).send(users);
+router.get('/users', authenticateBearer, async (req, res, next) => {
+  try {
+    const users = await usersCollection.read(); // Fetch all users
+    res.status(200).json({ results: users }); // Send users in the response
+  } catch (error) {
+    console.error('Error fetching users:', error);
+    res.status(500).json({ error: 'Internal Server Error' });
+  }
 });
 
 // ** GET one user by username
